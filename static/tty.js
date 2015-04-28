@@ -187,9 +187,17 @@ tty.reset = function() {
  */
 
 tty.toggleLights = function() {
-  root.className = !root.className
-    ? 'dark'
-    : '';
+  if(root.classList) {
+    root.classList.toggle('dark');
+  } else {
+    var isCurrentlyDark = root.className.indexOf('dark')>=0;
+    if(isCurrentlyDark) {
+      root.className = root.className.replace(/( )*(\b)(dark)(\b)/,'').trim();
+    } else {
+      root.className = root.className + ' dark';
+    }
+  }
+  
 };
 
 /**
